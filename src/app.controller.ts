@@ -1,3 +1,7 @@
+import { RoleName } from './modules/user/domain/entities/role.entity';
+import { Roles } from './common/decorators/role.decorator';
+import { Permissions } from './common/decorators/permission.decorator';
+import { Permission } from './modules/user/domain/entities/permission.entity';
 import { JwtService } from '@nestjs/jwt';
 import { TokenPayload } from '@/common/interfaces/token-payload.interface';
 import { LocalAuthGuard } from '@/common/guards/local-auth.guard';
@@ -14,9 +18,11 @@ export class AppController {
   ) {}
 
 
+  // @Roles('super-admin', 'admin')
+  @Permissions(Permission.ReadUsers)
   @Get('user/profile')
   getHello(@User() user): string {
-    console.log(user);
+    // console.log('user', user);
 
     return this.appService.getHello();
   } 

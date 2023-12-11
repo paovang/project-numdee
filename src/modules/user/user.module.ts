@@ -8,12 +8,15 @@ import { strategies } from './auth';
 @Module({
     imports: [
       TypeOrmModule.forFeature(userModels, DatabaseConnection.Main),
+      
     ],
     controllers: [],
     providers: [
         AuthService,
         ...strategies
     ],
-    exports: [],
+    exports: [
+
+    ],
 })
 export class UserModule {}

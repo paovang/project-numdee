@@ -1,10 +1,14 @@
+import { RoleModel } from './role.model';
 import { 
     Entity, 
     Column, 
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
-    DeleteDateColumn
+    DeleteDateColumn,
+    Relation,
+    JoinTable,
+    ManyToMany
 } from 'typeorm';
   
 @Entity('users')
@@ -13,16 +17,19 @@ export class UserModel {
     id: number;
 
     @Column()
-    first_name: string;
+    username?: string;
+
+    @Column({ unique: true, type: 'varchar', length: 100, nullable: true })
+    phone?: string;
 
     @Column()
-    last_name: string;
-
-    @Column()
-    email: string;
+    email?: string;
 
     @Column()
     password: string;
+
+    @Column({ unique: true, type: 'varchar', length: 100, nullable: true })
+    notification_topic?: string;
 
     @Column({ default: true })
     isActive: boolean;
@@ -35,4 +42,21 @@ export class UserModel {
 
     @DeleteDateColumn({ nullable: true })
     delete_at?: Date;
+
+    @ManyToMany(() => RoleModel, (role) => role.users, {
+        onDelete: 'CASCADE',
+        onUpdate: 'NO ACTION',
+    })
+    @JoinTable({
+        name: 'role_user',
+        joinColumn: {
+            name: 'user_id',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'role_id',
+            referencedColumnName: 'id',
+        },
+    })
+    roles: Relation<RoleModel[]>;
 }

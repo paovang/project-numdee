@@ -15,8 +15,6 @@ export class UserEntity {
 
   isActive = true;
 
-  accessToken?: string;
-
   verifyAt?: Date;
 
   roles: RoleEntity[];

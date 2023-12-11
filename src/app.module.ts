@@ -1,3 +1,4 @@
+import { RoleGuard } from './common/guards/role.guard';
 import { UserModule } from '@/modules/user/user.module';
 import { jwtConfig } from './common/configurations/jwt.config';
 import { PermissionGuard } from '@/common/guards/permission.guard';
@@ -32,6 +33,10 @@ import { PassportModule } from '@nestjs/passport';
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
     },
     {
       provide: APP_GUARD,

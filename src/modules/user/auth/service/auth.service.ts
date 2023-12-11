@@ -1,32 +1,43 @@
+import { UserModel } from './../../data-typeorm/models/user.model';
+import { DatabaseConnection } from './../../../../common/configurations/typeorm.config';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
+import { compare } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-    private readonly users = [
-        {
-          id: 1,
-          username: 'john',
-          password: 'changeme',
-        },
-        {
-          id: 2,
-          username: 'maria',
-          password: 'guess',
-        },
-    ];
-
     constructor(
-        private jwtService: JwtService
+        private jwtService: JwtService,
+        @InjectDataSource(DatabaseConnection.Main)
+        private _dataSource: DataSource,
     ) {}
 
-    async validateUser(username: string, pass: string): Promise<any> {
-        const user = this.users.find(user => user.username === username);
+
+    async findOne(id: number): Promise<any> {
+        const user = await this._dataSource
+            .getRepository(UserModel)
+            .createQueryBuilder('users')
+            .leftJoinAndSelect('users.roles', 'role')
+            .leftJoinAndSelect('role.permissions', 'permission')
+            .where('users.id = :id', { id })
+            .getOne();
+
+        return user;
+    }
+
+    async validateUser(username: string, password: string): Promise<any> {
+        const user = await this._dataSource
+            .getRepository(UserModel)
+            .createQueryBuilder('users')
+            .where('users.username = :username', { username })
+            .getOne();
         
-        if (user && user.password === pass) {
-            const { password, ...result } = user;
-            return result;
+        if (user && await compare(password, user.password)) {
+            return user;
         }
+
         return null;
     }
 
