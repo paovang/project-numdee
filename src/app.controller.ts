@@ -38,7 +38,12 @@ export class AppController {
     // });
     // console.log(transMessage);
 
-    // await this._queue.addJob(JobNames.SendMail, { data: 'i need send email@2023!!!.' });
+    
+    await this._queue.addJob(JobNames.SendMail, { 
+      email: 'vangpaovang@gmail.com',
+      subject: "test send email",
+      context: "this is my body"
+    });
 
     return this.appService.getHello();
   } 

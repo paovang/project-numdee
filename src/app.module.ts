@@ -1,3 +1,4 @@
+import { MailModule } from '@/infrastructure/adapters/mail/mail.module';
 import { QueueModule } from '@/infrastructure/adapters/queue/bull/queue.module';
 import { CacheModule } from '@/infrastructure/adapters/cache/redis/cache.module';
 import { CatchEverythingFilter } from '@/common/filters/catch-everything.filter';
@@ -28,6 +29,7 @@ import { JwtModule } from '@nestjs/jwt';
       inject: [ConfigService],
     }),
     QueueModule,
+    MailModule,
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,

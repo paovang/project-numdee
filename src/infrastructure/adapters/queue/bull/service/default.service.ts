@@ -1,15 +1,16 @@
+import { CustomException } from '@/common/exception/custom.exception';
+import { CACHE_SERVICE } from '@/infrastructure/adapters/cache/inject-key';
 import { ICache } from '@/infrastructure/ports/cache/cache.interface';
 import { IDefualtQueue } from '@/infrastructure/ports/queue/default-queue.interface';
 import { InjectQueue } from '@nestjs/bull';
 import { Inject, Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
-import { CACHE_SERVICE } from '../../../cache/inject-key';
 
 @Injectable()
 export class DefaultQueueService<Payload> implements IDefualtQueue<Payload> {
     constructor(
         @InjectQueue('defaultQueue') private readonly queue: Queue,
-        @Inject(CACHE_SERVICE) private readonly cacheService: ICache<any>,
+        @Inject(CACHE_SERVICE) private readonly cacheService: ICache<any>
     ) {}
 
     async addJob(
@@ -33,9 +34,9 @@ export class DefaultQueueService<Payload> implements IDefualtQueue<Payload> {
             const message = error instanceof Error ? error.message : 'An unknown error occurred';
             console.log('error: ', message);
 
-            // throw new CustomException('FAILED_TO_ADD_JOB_TO_QUEUE', 500, 'error', {
-            //     message: message,
-            // });
+            throw new CustomException('FAILED_TO_ADD_JOB_TO_QUEUE', 500, 'error', {
+                message: message,
+            });
         }
     }
 }
