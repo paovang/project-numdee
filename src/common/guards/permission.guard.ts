@@ -18,7 +18,7 @@ export class PermissionGuard implements CanActivate {
       PERMISSION_KEY,
       [context.getHandler(), context.getClass()],
     );
-    console.log(requiredPermissions);
+      
     if (!requiredPermissions) return true;
 
     const { user } = context.switchToHttp().getRequest<{ user: UserEntity }>();
