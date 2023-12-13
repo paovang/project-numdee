@@ -39,9 +39,9 @@ foldersToCreate.forEach(subfolderName => {
 
   try {
     fs.mkdirSync(folderPath, { recursive: true });
-    console.log(`โฟลเดอร์ ${subfolderName} ถูกสร้างใน ${modulePath}`);
+    console.log(`ສ້າງໂຟເດີ່ ${subfolderName} ຖືກສ້າງໃນ ${modulePath}`);
   } catch (err) {
-    console.error(`เกิดข้อผิดพลาดในการสร้างโฟลเดอร์ ${subfolderName}: ${err}`);
+    console.error(`ເກີດຂໍ້ຜິດພາດໃນການສ້າງໂຟເດີ່ ${subfolderName}: ${err}`);
   }
 });
 

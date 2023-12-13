@@ -19,8 +19,8 @@ function createIndexFile(folderPath: string) {
     const indexPath = `${folderPath}/index.ts`;
     try {
         fs.writeFileSync(indexPath, '', 'utf-8');
-        console.log(`ไฟล์ index.ts ถูกสร้างใน ${folderPath}`);
+        console.log(`ໄຟລ໋ index.ts ຖືກສ້າງໃນ ${folderPath}`);
     } catch (err) {
-        console.error(`เกิดข้อผิดพลาดในการสร้างไฟล์ index.ts: ${err}`);
+        console.error(`ເກີດຂໍ້ຜິດພາດໃນການສ້າງໄຟລ໋ index.ts: ${err}`);
     }
 }
