@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "master-pao-create-module": "ts-node ./src/common/create-folder-structure/create-module.ts",
     "cache:clear": "ts-node -r tsconfig-paths/register ./src/infrastructure/adapters/cache/command/clear-cache.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
