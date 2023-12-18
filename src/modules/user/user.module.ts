@@ -1,3 +1,6 @@
+import { userDataServices } from './data-typeorm/services/index';
+import { userCommandHandler } from './commands/handler/index';
+import { userControllers } from './controllers/index';
 import { AuthService } from './auth/service/auth.service';
 import { userModels } from './data-typeorm/models/index';
 import { DatabaseConnection } from '@/common/configurations/typeorm.config';
@@ -10,10 +13,14 @@ import { strategies } from './auth';
       TypeOrmModule.forFeature(userModels, DatabaseConnection.Main),
       
     ],
-    controllers: [],
+    controllers: [
+      ...userControllers
+    ],
     providers: [
-        AuthService,
-        ...strategies
+      ...userCommandHandler,
+      AuthService,
+      ...strategies,
+      ...userDataServices
     ],
     exports: [
 

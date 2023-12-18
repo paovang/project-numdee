@@ -17,6 +17,7 @@ import moment from 'moment';
 import { I18nContext, I18nService } from 'nestjs-i18n';
 import { CustomException } from '../exception/custom.exception';
 import { IEnv } from '../interfaces/env.interface';
+import axios from 'axios';
 
 @Catch()
 export class CatchEverythingFilter implements ExceptionFilter {
@@ -84,7 +85,17 @@ export class CatchEverythingFilter implements ExceptionFilter {
       status = HttpStatus.INTERNAL_SERVER_ERROR;
       message = exception.message + ' ' + exception.hint ?? '';
       this.logger.error(`[Server Error] Message: ${message}`, exception.stack);
+      
       if (isProduction) {
+
+        await axios.post(this.config.get<string>('SLACK_WEBHOOK_URL'), {
+          text: `[${exception.constructor.name}] Message: ${message} ${exception.stack} ${errorContext}`,
+        }, {
+          headers: {
+            'Content-type': 'application/json',
+          },
+        });
+        
         // await this.notificationService.sendNotification(
         //   NotificationTypes.SLACK,
         //   this.config.get<string>('SLACK_WEBHOOK_URL'),
@@ -101,3 +112,6 @@ export class CatchEverythingFilter implements ExceptionFilter {
     return message.toUpperCase().replace(/ /g, '_');
   }
 }
+
+// https://api.slack.com/apps/A069WNJMWCE/incoming-webhooks
+// https://app.slack.com

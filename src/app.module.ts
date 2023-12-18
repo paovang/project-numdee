@@ -16,6 +16,7 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { JwtModule } from '@nestjs/jwt';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { JwtModule } from '@nestjs/jwt';
     I18nModule,
     CacheModule,
     TypeOrmRepositoryModule,
+    CqrsModule.forRoot(),
     JwtModule.registerAsync({
       global: true,
       useFactory: jwtConfig,

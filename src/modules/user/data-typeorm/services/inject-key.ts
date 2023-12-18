@@ -1,0 +1,1 @@
+export const WRITE_USER_REPOSITORY = Symbol('WRITE_USER_REPOSITORY');

@@ -39,11 +39,11 @@ export class AppController {
     // console.log(transMessage);
 
     
-    await this._queue.addJob(JobNames.SendMail, { 
-      email: 'vangpaovang@gmail.com',
-      subject: "test send email",
-      context: "this is my body"
-    });
+    // await this._queue.addJob(JobNames.SendMail, { 
+    //   email: 'vangpaovang@gmail.com',
+    //   subject: "test send email",
+    //   context: "this is my body"
+    // });
 
     return this.appService.getHello();
   } 
@@ -65,9 +65,3 @@ export class AppController {
     return { accessToken: token, user: user };
   }
 }
-
-// if (!await this.cacheService.get('accessToken')) {
-//   await this.cacheService.set('accessToken', token, 3600000);
-// }
-
-// console.log(await this.cacheService.get('accessToken'));
