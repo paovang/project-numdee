@@ -1,3 +1,4 @@
+import { userQueries } from './queries/index';
 import { userDataServices } from './data-typeorm/services/index';
 import { userCommandHandler } from './commands/handler/index';
 import { userControllers } from './controllers/index';
@@ -17,6 +18,7 @@ import { strategies } from './auth';
       ...userControllers
     ],
     providers: [
+      ...userQueries,
       ...userCommandHandler,
       AuthService,
       ...strategies,
