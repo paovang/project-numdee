@@ -86,10 +86,18 @@ export class WriteUserTypeOrmRepository implements IWriteUserRepository
         const queryBuilder = this._dataSource
             .getRepository(UserModel)
             .createQueryBuilder('users')
-            .leftJoinAndSelect('users.roles', 'role')
-            .leftJoinAndSelect('role.permissions', 'permission')
-            .take(limit || undefined) // Take `limit` only if it's provided
-            .skip(page ? (page - 1) * (limit || 0) : 0); // Skip only if `page` is provided
+            .leftJoin('users.roles', 'role')
+            .leftJoin('role.permissions', 'permission')
+
+        queryBuilder.addSelect([
+            'role.id', 
+            'role.name', 
+            'role.description', 
+            'permission.id',
+            'permission.name',
+            'permission.description',
+        ]);
+        queryBuilder.take(limit || undefined).skip(page ? (page - 1) * (limit || 0) : 0);
         
         const [results, totalCount] = await queryBuilder.getManyAndCount();
 
