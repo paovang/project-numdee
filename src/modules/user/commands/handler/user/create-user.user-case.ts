@@ -1,7 +1,7 @@
-import { IWriteUserRepository } from './../../domain/repositories/user.interfac';
+import { IWriteUserRepository } from '../../../domain/repositories/user.interface';
 import { Inject } from '@nestjs/common';
-import { WRITE_USER_REPOSITORY } from './../../data-typeorm/services/inject-key';
-import { CreateUserCommand } from './../command/create-user.command';
+import { WRITE_USER_REPOSITORY } from '../../../data-typeorm/services/inject-key';
+import { CreateUserCommand } from '../../command/user/create-user.command';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 @CommandHandler(CreateUserCommand)

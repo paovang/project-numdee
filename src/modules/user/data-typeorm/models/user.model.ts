@@ -44,6 +44,7 @@ export class UserModel {
     delete_at?: Date;
 
     @ManyToMany(() => RoleModel, (role) => role.users, {
+        cascade: true,
         onDelete: 'CASCADE',
         onUpdate: 'NO ACTION',
     })

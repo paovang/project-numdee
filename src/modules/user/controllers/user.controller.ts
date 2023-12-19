@@ -1,4 +1,5 @@
-import { CreateUserCommand } from './../commands/command/create-user.command';
+import { GenerateTokenCommand } from '../commands/command/user/generate-token.comand';
+import { CreateUserCommand } from '../commands/command/user/create-user.command';
 import { LocalAuthGuard } from '@/common/guards/local-auth.guard';
 import { JwtService } from '@nestjs/jwt';
 import { TokenPayload } from '@/common/interfaces/token-payload.interface';
@@ -21,16 +22,10 @@ export class UserController {
     @Post('login')
     async login(@Request() req) {
         const user = req.user;
-
-        const payload: TokenPayload = {
-            sub: user.id,
-            username: user.username,
-            timestamp: new Date().getTime(),
-        };
-
-        const token = this._jwt.sign(payload);
-
-        return { accessToken: token, user: user };
+        
+        return await this._commandBus.execute<GenerateTokenCommand, string>(
+            new GenerateTokenCommand(user)
+        );
     }
     
     @Post('register')
