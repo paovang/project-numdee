@@ -7,4 +7,6 @@ export interface IWriteUserRepository {
     getOne(id: number): Promise<UserModel>;
 
     findUserName(username: string): Promise<UserModel>;
+
+    getAll(query: any): Promise<UserModel>;
 }

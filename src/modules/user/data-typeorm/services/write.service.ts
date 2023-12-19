@@ -52,12 +52,22 @@ export class WriteUserTypeOrmRepository implements IWriteUserRepository
     async getOne(id: number): Promise<UserModel> {
         const user = await this._dataSource
             .getRepository(UserModel)
-            .findOne({ where: { id }, relations: ['roles', 'roles.permissions'] });
+            .findOne({ 
+                where: { id }, 
+                relations: ['roles', 'roles.permissions']
+            });
+
+        if (user) {
+            // Sort permissions by their id in descending order
+            user.roles.forEach(role => {
+                role.permissions.sort((a, b) => b.id - a.id);
+            });
+        }
 
         return user;
     }
 
-    async findUserName(username: string): Promise<UserModel> {
+    async findUserName(username: string): Promise<UserModel | undefined> {
         const value = camelToSnakeCase(username);
 
         const res = await this._dataSource
@@ -67,6 +77,28 @@ export class WriteUserTypeOrmRepository implements IWriteUserRepository
         .getOne();
 
         return res;
+    }
+
+    async getAll({
+        limit,
+        page
+    }): Promise<any> {
+        const queryBuilder = this._dataSource
+            .getRepository(UserModel)
+            .createQueryBuilder('users')
+            .leftJoinAndSelect('users.roles', 'role')
+            .leftJoinAndSelect('role.permissions', 'permission')
+            .take(limit || undefined) // Take `limit` only if it's provided
+            .skip(page ? (page - 1) * (limit || 0) : 0); // Skip only if `page` is provided
+        
+        const [results, totalCount] = await queryBuilder.getManyAndCount();
+
+        return { 
+            data: results, 
+            total: totalCount, 
+            limit: limit ? +limit : undefined, 
+            page: page ? +page : undefined 
+        };
     }
 }
 
