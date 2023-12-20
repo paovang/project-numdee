@@ -1,3 +1,4 @@
+import { CreateUserDto } from './../../dtos/user/create.dto';
 import { RoleModel } from './../models/role.model';
 import { hash } from 'bcrypt';
 import { UserModel } from './../models/user.model';
@@ -16,7 +17,7 @@ export class WriteUserTypeOrmRepository implements IWriteUserRepository
         private _dataSource: DataSource
     ) {}
 
-    async create(input: any): Promise<any> {
+    async create(input: CreateUserDto): Promise<UserModel> {
         let res: UserModel;
 
         const queryRunner = this._dataSource.createQueryRunner();

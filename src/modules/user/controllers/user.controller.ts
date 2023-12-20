@@ -1,3 +1,4 @@
+import { CreateUserDto } from './../dtos/user/create.dto';
 import { GetOneUserQuery } from './../queries/query/get-one.query';
 import { UserModel } from './../data-typeorm/models/user.model';
 import { GetAllUserQuery } from './../queries/query/get-all.query';
@@ -31,7 +32,7 @@ export class UserController {
     
     @Post('register')
     async create(
-        @Body() body
+        @Body() body: CreateUserDto
     ): Promise<any> {
         return await this._commandBus.execute<CreateUserCommand, string>(
             new CreateUserCommand(body),

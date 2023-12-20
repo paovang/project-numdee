@@ -1,4 +1,9 @@
 {
     "IS_NUMBER": "{property} ຄວນເປັນໂຕເລກ.",
-    "IS_NOT_EMPTY": "{property} ບໍ່ສາມາດຫວ່າງເປົ່າໄດ້"
+    "IS_NOT_EMPTY": "{property} ບໍ່ສາມາດຫວ່າງໄດ້.",
+    "IS_MAX_LENGTH": "{property} ຕ້ອງບໍ່ເກີນ {value} ໂຕອັກສອນ",
+    "ARRAY_NOT_EMPTY": "{property} ບໍ່ສາມາດຫວ່າງໄດ້.",
+    "IS_ARRAY": "{property} ຄວນເປັນ array.",
+    "IS_STRING": "{property} ຄວນເປັນ string",
+    "INVALID_EMAIL": "{property} ອີເມວບໍ່ຖືກຕ້ອງ."
 }
