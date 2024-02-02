@@ -29,5 +29,6 @@
     "CAN_NOT_CONNECT_TO_DATABASE": "ບໍ່ສາມາດເຊື່ອມຕໍ່ກັບຖານຂໍ້ມູນ {name}",
     "INVALID_NOTIFICATION_OBJECT": "ຂ້ຄວາມໃນແຈ້ງເຕືອນບໍ່ຖືກຕ້ອງ",
     "FILE_IS_REQUIRED": "file ບໍ່ສາມາດຫວ່າງເປົ່າໄດ້",
-    "INVALID_OBJECTID": "ObjectId ບໍ່ຖືກຕ້ອງ"
+    "INVALID_OBJECTID": "ObjectId ບໍ່ຖືກຕ້ອງ",
+    "PAO_VALID": "{property} dfgdfgdfg."
 }

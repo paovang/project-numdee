@@ -79,6 +79,10 @@ export class WriteUserTypeOrmRepository implements IWriteUserRepository
 
         return res;
     }
+
+    async test(input: any): Promise<any> {
+        return 'dfgdf';
+    }
 }
 
 export const writeUserTypeOrmRepositoryProvider: Provider = {

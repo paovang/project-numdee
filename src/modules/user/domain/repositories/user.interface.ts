@@ -7,6 +7,8 @@ export interface IWriteUserRepository {
     update(id: number, input: UpdateUserDto): Promise<UserModel>;
 
     delete(id: number): Promise<UserModel>;
+
+    test(input: any): Promise<any>;
 }
 
 export interface IReadUserRepository {
